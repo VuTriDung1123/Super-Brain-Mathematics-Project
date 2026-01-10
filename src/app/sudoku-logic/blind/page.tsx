@@ -18,10 +18,10 @@ interface GameSettings {
   solveTimeLimit: number; 
 }
 
-// --- CORE SUDOKU LOGIC (UNIQUE ENGINE) ---
+// --- CORE SUDOKU LOGIC (UNIQUE SOLUTION ENGINE) ---
 const GRID_CONFIG = {
   '2x2': { total: 4, rows: 2, cols: 2 }, // 4x4
-  '2x3': { total: 6, rows: 2, cols: 3 }, // 6x6 (Block cao 2, rộng 3)
+  '2x3': { total: 6, rows: 2, cols: 3 }, // 6x6
   '3x3': { total: 9, rows: 3, cols: 3 }, // 9x9
 };
 
@@ -29,13 +29,13 @@ const GRID_CONFIG = {
 const isSafe = (board: number[][], row: number, col: number, num: number, config: any) => {
   const { total, rows, cols } = config;
   
-  // Row & Col
+  // Check Row & Col
   for (let x = 0; x < total; x++) {
     if (board[row][x] === num) return false;
     if (board[x][col] === num) return false;
   }
 
-  // Block
+  // Check Block
   const startRow = row - (row % rows);
   const startCol = col - (col % cols);
   for (let i = 0; i < rows; i++) {
@@ -53,7 +53,7 @@ const fillBoard = (board: number[][], config: any): boolean => {
     for (let col = 0; col < total; col++) {
       if (board[row][col] === 0) {
         const nums = Array.from({ length: total }, (_, i) => i + 1);
-        // Shuffle
+        // Shuffle để tạo ngẫu nhiên
         for (let i = nums.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [nums[i], nums[j]] = [nums[j], nums[i]];
@@ -73,9 +73,9 @@ const fillBoard = (board: number[][], config: any): boolean => {
   return true;
 };
 
-// 3. Đếm số nghiệm (Kiểm tra Unique)
+// 3. Đếm số nghiệm (Solver Check - Để đảm bảo Unique)
 const countSolutions = (board: number[][], config: any, count = { val: 0 }, limit = 2): void => {
-  if (count.val >= limit) return;
+  if (count.val >= limit) return; // Tìm thấy quá 1 nghiệm thì dừng ngay
 
   const { total } = config;
   let row = -1; let col = -1; let isEmpty = false;
@@ -109,33 +109,31 @@ const generateUniquePuzzle = (size: GridSize, difficulty: Difficulty) => {
   fillBoard(board, config);
   const solution = board.map(row => [...row]);
 
-  // B2: Tính số lượng clues (Số ô giữ lại để ghi nhớ)
+  // B2: Tính số lượng clues (Số ô giữ lại)
+  // Cân bằng độ khó dựa trên % số ô còn lại
   const totalCells = total * total;
   let cluesCount = 0;
 
-  // Cân bằng độ khó:
-  // Easy: Giữ lại nhiều (60%) -> Dễ nhớ, dễ giải
-  // Medium: Giữ lại vừa (45%)
-  // Hard: Giữ lại ít (30%) -> Khó nhớ, khó giải
-  if (difficulty === 'easy') cluesCount = Math.floor(totalCells * 0.60);
-  else if (difficulty === 'medium') cluesCount = Math.floor(totalCells * 0.45);
-  else cluesCount = Math.floor(totalCells * 0.30); // Hard
+  if (difficulty === 'easy') cluesCount = Math.floor(totalCells * 0.60); // Giữ 60%
+  else if (difficulty === 'medium') cluesCount = Math.floor(totalCells * 0.45); // Giữ 45%
+  else cluesCount = Math.floor(totalCells * 0.30); // Giữ 30% (Khó)
 
   let attempts = totalCells - cluesCount; // Số ô cần xóa
   const puzzle = board.map(row => [...row]);
 
-  // Danh sách vị trí để thử xóa
+  // Tạo danh sách vị trí ngẫu nhiên để thử xóa
   let positions = [];
   for(let r=0; r<total; r++) for(let c=0; c<total; c++) positions.push({r, c});
   positions.sort(() => Math.random() - 0.5);
 
   for (const pos of positions) {
       if (attempts <= 0) break;
+      
       const { r, c } = pos;
       const backup = puzzle[r][c];
-      puzzle[r][c] = 0; // Xóa thử
+      puzzle[r][c] = 0; // Thử xóa
 
-      // Check unique solution
+      // Kiểm tra xem sau khi xóa có còn duy nhất 1 nghiệm không
       const copyBoard = puzzle.map(row => [...row]);
       const countObj = { val: 0 };
       countSolutions(copyBoard, config, countObj);
@@ -440,6 +438,7 @@ export default function BlindSudokuGame() {
                 Sử dụng <span className="border border-slate-600 px-1 rounded text-white mx-1">Mũi tên</span> để di chuyển, <span className="border border-slate-600 px-1 rounded text-white mx-1">Số</span> để nhập.
             </div>
 
+            {/* BOARD */}
             <div className={`grid ${getGridClass()} gap-0 bg-slate-800 border-4 border-slate-600 rounded shadow-2xl mb-8 select-none outline-none`}>
                 {userBoard.map((row, rIndex) => (
                     row.map((cell, cIndex) => (
@@ -450,7 +449,7 @@ export default function BlindSudokuGame() {
                                 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center text-xl md:text-2xl font-bold cursor-pointer transition-all
                                 ${getCellBorder(rIndex, cIndex)}
                                 ${selectedCell?.r === rIndex && selectedCell?.c === cIndex 
-                                    ? 'bg-purple-600 text-white ring-2 ring-purple-400 z-10' 
+                                    ? 'bg-purple-600 text-white ring-2 ring-purple-400 z-10' // Active Cell Highlighting
                                     : 'bg-slate-900 text-purple-200 hover:bg-slate-800'}
                             `}
                         >
@@ -460,6 +459,8 @@ export default function BlindSudokuGame() {
                 ))}
             </div>
 
+            {/* IMPROVED NUMPAD UI */}
+            {/* Thay grid bằng flex + justify-center để nút luôn ra giữa màn hình */}
             <div className="flex flex-wrap justify-center gap-3 mb-8 px-4 w-full max-w-3xl">
                 {Array.from({ length: config.total }, (_, i) => i + 1).map((num) => (
                     <button 
@@ -489,6 +490,7 @@ export default function BlindSudokuGame() {
         <div className="flex flex-col items-center justify-center min-h-screen p-4 animate-fade-in-up">
              <div className="w-full max-w-3xl bg-slate-900 border border-slate-700 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
                  
+                 {/* Check Correctness */}
                  {JSON.stringify(userBoard) === JSON.stringify(solutionBoard) ? (
                      <div className="text-center">
                         <div className="absolute top-0 left-0 w-full h-3 bg-green-500" />
@@ -504,6 +506,7 @@ export default function BlindSudokuGame() {
                         </p>
                         
                         <div className="text-center text-sm text-slate-500 mb-4 uppercase font-bold">Đáp án đúng</div>
+                        {/* Show Solution Mini Grid */}
                         <div className={`grid ${getGridClass()} gap-0 bg-slate-800 border-2 border-slate-600 rounded mx-auto w-fit opacity-90 pointer-events-none scale-75 md:scale-100`}>
                             {solutionBoard.map((row, rIndex) => (
                                 row.map((cell, cIndex) => (
