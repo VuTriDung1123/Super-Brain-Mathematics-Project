@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 import {
   GRID_CONFIG,
   generateUniquePuzzle,
@@ -178,6 +179,17 @@ export default function BlindSudokuGame() {
 
   const isSolvedCorrectly =
     phase === 'RESULT' && isValidCompletedSudoku(userBoard, puzzleBoard, config);
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'blind-sudoku',
+    won: isSolvedCorrectly,
+    accuracy: isSolvedCorrectly ? 100 : 0,
+    scoreLabel: `Bảng ${settings.gridSize} (${settings.difficulty})`,
+    durationSec:
+      settings.solveMode === 'manual'
+        ? Math.max(1, displayTime)
+        : Math.max(1, settings.solveTimeLimit - displayTime),
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-purple-500 selection:text-white">

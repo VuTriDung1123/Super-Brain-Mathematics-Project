@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 import {
   GRID_CONFIG,
   generateUniquePuzzle,
@@ -237,6 +238,17 @@ export default function ChromaticSudokuGame() {
   const isColLayerCorrect =
     phase === 'RESULT' && isValidCompletedSudoku(userCol, initialCol, config);
   const isBothCorrect = isNumLayerCorrect && isColLayerCorrect;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'chromatic-sudoku',
+    won: isBothCorrect,
+    accuracy: (isNumLayerCorrect ? 50 : 0) + (isColLayerCorrect ? 50 : 0),
+    scoreLabel: `${settings.gridSize}${settings.isBlindMode ? ' Mù' : ''} (${(isNumLayerCorrect ? 1 : 0) + (isColLayerCorrect ? 1 : 0)}/2 lớp)`,
+    durationSec:
+      settings.timeMode === 'manual'
+        ? Math.max(1, displayTime)
+        : Math.max(1, settings.timeLimit - displayTime),
+  });
 
   const isCellWrong = (r: number, c: number) => {
     if (showSolution || isBothCorrect) return false;

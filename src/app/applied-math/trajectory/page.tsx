@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type PhysicsMode = 'projectile' | 'laser';
@@ -274,6 +276,7 @@ export default function TrajectoryGame() {
         setIsFiring(false);
         setProjStatus('wall');
         setAttemptsLeft((a) => a - 1);
+        playError();
         return;
       }
 
@@ -283,6 +286,7 @@ export default function TrajectoryGame() {
         setIsFiring(false);
         setProjStatus('hit');
         setScore((s) => s + 1);
+        playSuccess();
         return;
       }
 
@@ -291,6 +295,7 @@ export default function TrajectoryGame() {
         setIsFiring(false);
         setProjStatus('miss');
         setAttemptsLeft((a) => a - 1);
+        playError();
         return;
       }
 
@@ -306,8 +311,18 @@ export default function TrajectoryGame() {
     setLaserRevealed(true);
     if (port === laserLevel.exitLabel) {
       setScore((s) => s + 1);
+      playSuccess();
+    } else {
+      playError();
     }
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'trajectory',
+    won: score >= Math.ceil(settings.rounds * 0.6),
+    accuracy: Math.round((score / Math.max(1, settings.rounds)) * 100),
+    scoreLabel: `${score}/${settings.rounds} màn (${settings.mode === 'projectile' ? 'Đạn đạo' : 'Laser'})`,
+  });
 
   const handleNextRound = () => {
     if (roundIdx + 1 < settings.rounds) {

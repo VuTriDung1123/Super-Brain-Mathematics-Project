@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type GraphChallenge = 'shortest-path' | 'mst' | 'coloring';
@@ -419,6 +420,18 @@ export default function GraphTheoryGame() {
     }
     return s;
   }, [pathNodes]);
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'graph-theory',
+    won: isWin,
+    accuracy: isWin ? 100 : 0,
+    scoreLabel:
+      settings.challenge === 'shortest-path'
+        ? `Dijkstra (${settings.difficulty})`
+        : settings.challenge === 'mst'
+          ? `MST (${settings.difficulty})`
+          : `Tô màu (${settings.difficulty})`,
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-green-500 selection:text-white">

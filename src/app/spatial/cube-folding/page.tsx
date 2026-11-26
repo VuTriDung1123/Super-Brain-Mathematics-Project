@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -664,8 +666,18 @@ export default function CubeFoldingGame() {
     setSelectedOption(idx);
     if (idx === questions[currentIdx].correctIndex) {
       setScore((prev) => prev + 1);
+      playSuccess();
+    } else {
+      playError();
     }
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'cube-folding',
+    won: score >= Math.ceil(questions.length * 0.6),
+    accuracy: Math.round((score / Math.max(1, questions.length)) * 100),
+    scoreLabel: `${score}/${questions.length} câu`,
+  });
 
   const handleNext = () => {
     if (currentIdx + 1 < questions.length) {

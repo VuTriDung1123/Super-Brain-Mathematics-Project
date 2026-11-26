@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type GridSize = 5 | 7 | 10;
@@ -356,6 +357,17 @@ export default function NumberMazeGame() {
     if (index <= 0) return false;
     return !isValidStep(playerPath[index - 1].val, playerPath[index].val, settings.ruleType);
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'number-maze',
+    won: isWin,
+    accuracy: isWin ? 100 : 0,
+    scoreLabel: `${settings.gridSize}×${settings.gridSize} (${Math.max(0, playerPath.length - 1)} bước)`,
+    durationSec:
+      settings.timeMode === 'manual'
+        ? Math.max(1, displayTime)
+        : Math.max(1, settings.timeLimit - displayTime),
+  });
 
   const getCellStyle = (r: number, c: number) => {
     const baseClass =

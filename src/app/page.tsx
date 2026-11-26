@@ -1,9 +1,21 @@
 import Link from 'next/link';
+import { HomeStatsBar, CategoryProgressBadge } from '@/components/HomeStatsBar';
+import type { CategoryId } from '@/lib/stats';
 
 export default function Home() {
-  const categories = [
+  const categories: {
+    id: number;
+    categoryId: CategoryId;
+    title: string;
+    subTitle: string;
+    desc: string;
+    games: string[];
+    color: string;
+    link: string;
+  }[] = [
     {
       id: 1,
+      categoryId: 'mental-math',
       title: "1. Tính nhẩm siêu tốc",
       subTitle: "Mental Arithmetic",
       desc: "Thách thức tốc độ xử lý con số của não bộ.",
@@ -13,6 +25,7 @@ export default function Home() {
     },
     {
       id: 2,
+      categoryId: 'sudoku-logic',
       title: "2. Sudoku & Logic Số",
       subTitle: "Logic Variants",
       desc: "Tư duy tổ hợp và suy luận logic.",
@@ -22,6 +35,7 @@ export default function Home() {
     },
     {
       id: 3,
+      categoryId: 'spatial',
       title: "3. Hình học & Không gian",
       subTitle: "Spatial Reasoning",
       desc: "Tưởng tượng và tái cấu trúc không gian 3D.",
@@ -31,6 +45,7 @@ export default function Home() {
     },
     {
       id: 4,
+      categoryId: 'applied-math',
       title: "4. Toán ứng dụng & Mã hóa",
       subTitle: "Applied Math",
       desc: "Giải mã tín hiệu, tính quỹ đạo và tối ưu đồ thị.",
@@ -40,6 +55,7 @@ export default function Home() {
     },
     {
       id: 5,
+      categoryId: 'battle',
       title: "5. Tốc độ & Độ chính xác",
       subTitle: "Speed & Accuracy",
       desc: "Đối kháng tổng hợp các kỹ năng tính toán và phản xạ.",
@@ -50,9 +66,9 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-8 font-sans">
+    <main className="min-h-screen bg-slate-950 text-white pt-20 pb-12 px-8 font-sans">
       {/* --- HEADER --- */}
-      <header className="max-w-6xl mx-auto text-center mb-16">
+      <header className="max-w-6xl mx-auto text-center mb-10 animate-fade-in">
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
           SIÊU TRÍ TUỆ
         </h1>
@@ -60,6 +76,9 @@ export default function Home() {
           The Brain • Training Center
         </p>
       </header>
+
+      {/* --- LIVE PERSONAL STATS BAR --- */}
+      <HomeStatsBar />
 
       {/* --- MENU GRID --- */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -73,12 +92,17 @@ export default function Home() {
 
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h2 className="text-2xl font-bold mb-1 group-hover:text-blue-300 transition-colors">
-                  {cat.title}
-                </h2>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">
-                  {cat.subTitle}
-                </p>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <h2 className="text-2xl font-bold group-hover:text-blue-300 transition-colors">
+                    {cat.title}
+                  </h2>
+                </div>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                    {cat.subTitle}
+                  </p>
+                  <CategoryProgressBadge category={cat.categoryId} />
+                </div>
                 <p className="text-slate-300 mb-6 text-sm min-h-10">
                   {cat.desc}
                 </p>

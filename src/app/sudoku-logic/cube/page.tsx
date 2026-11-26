@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text, Center } from '@react-three/drei';
 import * as THREE from 'three';
@@ -374,6 +375,17 @@ export default function CubeSudokuGame() {
 
   const boxSize = currentConfig.total * currentConfig.cellSize;
   const dist = boxSize / 2 + 0.05;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'cube-sudoku',
+    won: isCorrect,
+    accuracy: isCorrect ? 100 : 0,
+    scoreLabel: `6 mặt ${settings.gridSize} (${settings.difficulty})`,
+    durationSec:
+      settings.timeMode === 'manual'
+        ? Math.max(1, timer)
+        : Math.max(1, settings.timeLimit - timer),
+  });
 
   return (
     <div className="h-screen w-full bg-slate-950 text-white font-sans overflow-hidden relative selection:bg-fuchsia-500 selection:text-white">

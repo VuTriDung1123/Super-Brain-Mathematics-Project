@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'INPUT' | 'RESULT';
 
@@ -100,6 +101,16 @@ export default function FlashAnzanGame() {
       : null;
 
   const progressPct = Math.min(100, ((currentIndex + 1) / Math.max(1, settings.count)) * 100);
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'flash-anzan',
+    won: isCorrect,
+    accuracy: isCorrect ? 100 : 0,
+    scoreLabel: isCorrect
+      ? `${settings.digits} số × ${settings.count} (${settings.totalTime}s)`
+      : `Sai (${userAnswer || '—'}/${correctAnswer})`,
+    durationSec: settings.totalTime,
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-cyan-500 selection:text-white">

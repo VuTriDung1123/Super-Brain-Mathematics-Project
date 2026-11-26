@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'INPUT' | 'RESULT';
 type TaskMode = 'visual-visual' | 'visual-audio';
@@ -167,6 +168,14 @@ export default function DoubleArithmeticGame() {
 
   const isLeftCorrect = inputLeft.trim() !== '' && parseInt(inputLeft, 10) === leftResult;
   const isRightCorrect = inputRight.trim() !== '' && parseInt(inputRight, 10) === rightResult;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'double-task',
+    won: isLeftCorrect && isRightCorrect,
+    accuracy: (isLeftCorrect ? 50 : 0) + (isRightCorrect ? 50 : 0),
+    scoreLabel: `${(isLeftCorrect ? 1 : 0) + (isRightCorrect ? 1 : 0)}/2 luồng (${settings.digits} số × ${settings.count})`,
+    durationSec: settings.totalTime,
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-purple-500 selection:text-white">

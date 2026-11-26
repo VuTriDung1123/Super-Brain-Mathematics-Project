@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Line } from '@react-three/drei';
 
@@ -450,6 +451,17 @@ export default function SpatialMaze3DGame() {
     const tk = `${currentPos.x + dx},${currentPos.y + dy},${currentPos.z + dz}`;
     return (maze.adjacency[coordKey(currentPos)] ?? []).some((n) => coordKey(n) === tk);
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'maze-3d',
+    won: isWin,
+    accuracy: isWin ? 100 : 0,
+    scoreLabel: `${settings.size}×${settings.size}×${settings.size} (${stepsCount} bước)`,
+    durationSec:
+      settings.timeMode === 'manual'
+        ? Math.max(1, displayTime)
+        : Math.max(1, settings.timeLimit - displayTime),
+  });
 
   return (
     <div className="h-screen w-full bg-slate-950 text-white font-sans overflow-hidden relative selection:bg-yellow-500 selection:text-black">

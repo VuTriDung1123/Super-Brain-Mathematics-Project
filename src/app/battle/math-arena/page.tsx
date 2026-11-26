@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type BotTier = 'rookie' | 'master' | 'grandmaster' | 'superbrain';
@@ -228,6 +230,7 @@ export default function MathBattleArenaGame() {
           text: `${BOT_PROFILES[settings.botTier].name} ra đòn trước! -${dmg} HP`,
           type: 'bot',
         });
+        playError();
 
         if (nextHp <= 0) {
           if (tickRef.current) clearInterval(tickRef.current);
@@ -270,6 +273,7 @@ export default function MathBattleArenaGame() {
           }`,
           type: 'player',
         });
+        playSuccess();
 
         if (nextBotHp <= 0) {
           if (tickRef.current) clearInterval(tickRef.current);
@@ -288,6 +292,7 @@ export default function MathBattleArenaGame() {
           text: `Sai rồi! Đáp án là ${question.answer}. Bị phản đòn -${dmg} HP`,
           type: 'bot',
         });
+        playError();
 
         if (nextPlayerHp <= 0) {
           if (tickRef.current) clearInterval(tickRef.current);
@@ -327,6 +332,13 @@ export default function MathBattleArenaGame() {
       : 0;
   const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
   const playerWon = botHp <= 0 && playerHp > 0;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'math-arena',
+    won: playerWon,
+    accuracy,
+    scoreLabel: `vs ${botProfile.name} (Combo ×${maxCombo})`,
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-red-500 selection:text-white">

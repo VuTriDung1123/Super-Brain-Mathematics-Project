@@ -69,12 +69,20 @@ Mọi bài toán đều được **sinh động (procedural generation)** và **
 ```text
 my-brain-game/
 ├── src/
+│   ├── components/
+│   │   ├── GlobalToolbar.tsx         # Thanh điều hướng nổi (Trang chủ, Hồ sơ, Streak, nút bật/tắt SFX)
+│   │   └── HomeStatsBar.tsx          # Thanh tóm tắt kỷ lục & tiến độ chinh phục trực tiếp trên Trang chủ
+│   ├── hooks/
+│   │   └── useGameResultRecorder.ts  # Hook tự động phát âm thanh kết quả & ghi nhận phiên luyện tập
 │   ├── lib/
-│   │   └── sudoku.ts                 # Bộ engine Sudoku dùng chung (sinh bảng O(N²), MRV solver, validator)
+│   │   ├── sudoku.ts                 # Bộ engine Sudoku dùng chung (sinh bảng O(N²), MRV solver, validator)
+│   │   ├── sound.ts                  # Bộ tổng hợp âm thanh hiệu ứng Web Audio API (không cần file audio ngoài)
+│   │   └── stats.ts                  # Kho lưu kỷ lục, streak ngày, lịch sử phiên & chỉ số Radar 5 trục
 │   └── app/
-│       ├── layout.tsx                # Root Layout, font Geist & metadata SEO
+│       ├── layout.tsx                # Root Layout, font Geist, metadata SEO & GlobalToolbar
 │       ├── globals.css               # Tailwind CSS v4 & custom keyframe animations
-│       ├── page.tsx                  # Trang chủ điều hướng 5 hạng mục
+│       ├── page.tsx                  # Trang chủ điều hướng 5 hạng mục + tiến độ hoàn thành
+│       ├── profile/                  # Trang Hồ sơ & Biểu đồ Radar 5 trục + lịch sử luyện tập
 │       ├── mental-math/              # Hạng mục 1: 4 trò chơi tính nhẩm
 │       ├── sudoku-logic/             # Hạng mục 2: 4 trò chơi Sudoku & mê cung số
 │       ├── spatial/                  # Hạng mục 3: 4 trò chơi hình học & không gian 3D
@@ -88,8 +96,8 @@ my-brain-game/
 ### Thuật toán & Kỹ thuật nổi bật
 - **Toán học chính xác trên số cực lớn**: Sử dụng `BigInt` kết hợp phương pháp Newton để khai căn bậc cao tới 100 chữ số/bậc trong vài micro-giây mà không mất độ chính xác dấu phẩy động.
 - **Sudoku Solver tốc độ cao (`src/lib/sudoku.ts`)**: Sinh bảng đã giải hợp lệ cho mọi cỡ `4×4 / 6×6 / 9×9 / 16×16` trong `O(N²)` bằng phép hoán vị bảo toàn cấu trúc, kết hợp tìm kiếm quay lui **MRV (Minimum Remaining Values)** để bảo đảm tính duy nhất của nghiệm.
-- **Đồ họa 3D & Vector tương tác**: Kết hợp `@react-three/fiber` + `@react-three/drei` cho khối lập phương Sudoku 6 mặt, khối gập triển khai 3D và mê cung không gian 3D; SVG động cho sóng nhị phân, quỹ đạo đạn đạo, buồng laser và đồ thị.
-- **Âm thanh & Giọng nói gốc trình duyệt**: Không cần tài nguyên audio ngoài — dùng **Web Speech API** cho tính nhẩm song hành và **Web Audio API** tổng hợp sóng sin cho tín hiệu Morse.
+- **Đồ họa 3D & Vector tương tác**: Kết hợp `@react-three/fiber` + `@react-three/drei` cho khối lập phương Sudoku 6 mặt, khối gập triển khai 3D và mê cung không gian 3D; SVG động cho biểu đồ Radar 5 trục, sóng nhị phân, quỹ đạo đạn đạo, buồng laser và đồ thị.
+- **Âm thanh, Giọng nói & Hồ sơ lưu trữ cục bộ**: Tổng hợp hiệu ứng âm thanh (SFX) toàn cục bằng **Web Audio API** có nút bật/tắt tức thì trên thanh công cụ, **Web Speech API** cho tính nhẩm song hành, và hệ thống lưu kỷ lục/chuỗi ngày (`localStorage` + React 19 `useSyncExternalStore`) không cần backend.
 
 ---
 
@@ -111,9 +119,12 @@ npm install
 
 # 3. Khởi chạy môi trường phát triển
 npm run dev
+
+# (Khuyên dùng sau khi pull code mới hoặc vừa chạy build để tránh lỗi cache Turbopack)
+npm run dev:clean
 ```
 
-Mở trình duyệt tại [http://localhost:3000](http://localhost:3000) để bắt đầu luyện tập.
+Mở trình duyệt tại [http://localhost:3000](http://localhost:3000) để bắt đầu luyện tập (xem hồ sơ năng lực tại `/profile`).
 
 ### Các lệnh kiểm tra & build
 
@@ -135,10 +146,11 @@ npm run start
 
 ## 🗺️ Định hướng mở rộng (Roadmap)
 
-- [ ] Lưu kỷ lục cá nhân, chuỗi ngày luyện tập (streak) và biểu đồ tiến bộ bằng `localStorage` / cơ sở dữ liệu.
-- [ ] Hồ sơ năng lực não bộ dạng biểu đồ Radar trên 5 nhóm kỹ năng.
-- [ ] Chế độ thi đấu đối kháng trực tuyến (Multiplayer Realtime) và bảng xếp hạng toàn cầu.
-- [ ] Gói hiệu ứng âm thanh phản hồi (SFX) có nút bật/tắt toàn cục.
+- [x] Lưu kỷ lục cá nhân, chuỗi ngày luyện tập (streak) và lịch sử phiên bằng `localStorage`.
+- [x] Hồ sơ năng lực não bộ dạng biểu đồ Radar trên 5 nhóm kỹ năng (`/profile`).
+- [x] Gói hiệu ứng âm thanh phản hồi (Web Audio SFX) có nút bật/tắt toàn cục trên thanh công cụ.
+- [ ] Đồng bộ đám mây (Cloud Sync) và bảng xếp hạng toàn cầu.
+- [ ] Chế độ thi đấu đối kháng trực tuyến (Multiplayer Realtime).
 
 ---
 

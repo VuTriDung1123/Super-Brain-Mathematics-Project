@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type CalcMode = 'multiply' | 'divide';
@@ -157,6 +158,14 @@ export default function ComplexCalcGame() {
   };
 
   const isAnswerCorrect = userAnswer.trim() !== '' && BigInt(userAnswer) === expectedAnswer;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'complex-calc',
+    won: isAnswerCorrect,
+    accuracy: isAnswerCorrect ? 100 : 0,
+    scoreLabel: `${settings.mode === 'multiply' ? 'Nhân' : 'Chia'} ${settings.digit1}×${settings.digit2} (${formatTimeDisplay(timeElapsed)}s)`,
+    durationSec: Math.max(1, Math.round(timeElapsed / 1000)),
+  });
 
   const renderDivisionLayout = () => (
     <div className="flex flex-col items-center justify-center gap-6 select-none font-mono text-white animate-fade-in">

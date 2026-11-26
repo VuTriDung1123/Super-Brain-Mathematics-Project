@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type ReflexMode = 'mixed' | 'truth' | 'compare' | 'stroop';
@@ -168,12 +170,14 @@ export default function QuickReflexGame() {
       setLastFeedback({ ok, ms });
 
       if (ok) {
+        playSuccess();
         setStreak((s) => {
           const next = s + 1;
           setMaxStreak((m) => Math.max(m, next));
           return next;
         });
       } else {
+        playError();
         setStreak(0);
       }
 
@@ -231,6 +235,13 @@ export default function QuickReflexGame() {
       : 0;
   const fastestMs =
     correctRecords.length > 0 ? Math.min(...correctRecords.map((r) => r.ms)) : 0;
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'quick-reflex',
+    won: accuracy >= 70,
+    accuracy,
+    scoreLabel: `${accuracy}% • TB ${meanMs}ms`,
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-rose-500 selection:text-white">

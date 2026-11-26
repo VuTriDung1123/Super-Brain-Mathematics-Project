@@ -2,6 +2,8 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type CipherMode = 'mixed' | 'caesar' | 'binary' | 'morse' | 'sequence';
@@ -416,8 +418,20 @@ export default function SignalDecodingGame() {
     const expected = currentQ.answer.trim().toUpperCase().replace(/\s+/g, '');
     const isCorrect = normalized === expected;
     setAnswered(isCorrect);
-    if (isCorrect) setScore((s) => s + 1);
+    if (isCorrect) {
+      setScore((s) => s + 1);
+      playSuccess();
+    } else {
+      playError();
+    }
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'signal-decoding',
+    won: score >= Math.ceil(questions.length * 0.6),
+    accuracy: Math.round((score / Math.max(1, questions.length)) * 100),
+    scoreLabel: `${score}/${questions.length} bản tin`,
+  });
 
   const handleNext = () => {
     if (currentIdx + 1 < questions.length) {

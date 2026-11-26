@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type RootType = 'exact' | 'decimal';
@@ -204,6 +205,14 @@ export default function RootExtractionGame() {
   const isAnswerCorrect =
     userAnswer.trim() !== '' &&
     normalizeNumericAnswer(userAnswer) === normalizeNumericAnswer(expectedAnswerStr);
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'root-extraction',
+    won: isAnswerCorrect,
+    accuracy: isAnswerCorrect ? 100 : 0,
+    scoreLabel: `Căn bậc ${settings.degree} (${settings.digits} chữ số)`,
+    durationSec: Math.max(1, Math.round(timeElapsed / 1000)),
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-white">

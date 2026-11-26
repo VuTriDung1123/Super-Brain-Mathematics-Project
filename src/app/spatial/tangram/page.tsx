@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type Point = [number, number];
@@ -822,6 +823,14 @@ export default function TangramGame() {
     const sec = s % 60;
     return `${m}:${sec < 10 ? '0' : ''}${sec}`;
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'tangram',
+    won: true,
+    accuracy: matchPercent,
+    scoreLabel: `${currentPuzzle.name} (${formatTime(elapsedSec)})`,
+    durationSec: Math.max(1, elapsedSec),
+  });
 
   const ptsToStr = (pts: Point[]) => pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
 

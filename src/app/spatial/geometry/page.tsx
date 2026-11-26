@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { playSuccess, playError } from '@/lib/sound';
+import { useGameResultRecorder } from '@/hooks/useGameResultRecorder';
 
 type GamePhase = 'SETUP' | 'PLAYING' | 'RESULT';
 type ModeType = 'triangles' | 'cubes' | 'rotation' | 'mixed';
@@ -434,15 +436,32 @@ export default function GeometryDecompositionGame() {
     const val = parseInt(numericInput, 10);
     const ok = val === currentQuestion.answer;
     setAnswered({ isCorrect: ok, chosen: val });
-    if (ok) setScore((s) => s + 1);
+    if (ok) {
+      setScore((s) => s + 1);
+      playSuccess();
+    } else {
+      playError();
+    }
   };
 
   const handleRotationSelect = (idx: number) => {
     if (!currentQuestion || currentQuestion.kind !== 'rotation' || answered) return;
     const ok = idx === currentQuestion.correctIndex;
     setAnswered({ isCorrect: ok, chosen: idx });
-    if (ok) setScore((s) => s + 1);
+    if (ok) {
+      setScore((s) => s + 1);
+      playSuccess();
+    } else {
+      playError();
+    }
   };
+
+  useGameResultRecorder(phase === 'RESULT', {
+    gameId: 'geometry',
+    won: score >= Math.ceil(questions.length * 0.6),
+    accuracy: Math.round((score / Math.max(1, questions.length)) * 100),
+    scoreLabel: `${score}/${questions.length} câu`,
+  });
 
   const handleNext = () => {
     if (currentIdx + 1 < questions.length) {
