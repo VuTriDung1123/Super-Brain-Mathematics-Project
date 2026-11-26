@@ -51,10 +51,11 @@ export function toggleSound(): boolean {
   return next;
 }
 
+/** Synthesizes plucked Koto / Furin wind-chime tones using Web Audio API */
 function playTone(
   freq: number,
   durationSec: number,
-  type: OscillatorType = 'sine',
+  type: OscillatorType = 'triangle',
   volume = 0.14,
   delaySec = 0
 ) {
@@ -70,8 +71,8 @@ function playTone(
   osc.frequency.setValueAtTime(freq, start);
 
   gain.gain.setValueAtTime(0.001, start);
-  gain.gain.linearRampToValueAtTime(volume, start + 0.012);
-  gain.gain.exponentialRampToValueAtTime(0.0008, start + durationSec);
+  gain.gain.linearRampToValueAtTime(volume, start + 0.008);
+  gain.gain.exponentialRampToValueAtTime(0.0006, start + durationSec);
 
   osc.connect(gain);
   gain.connect(ctx.destination);
@@ -80,33 +81,39 @@ function playTone(
   osc.stop(start + durationSec + 0.02);
 }
 
+/** Crisp wooden Hyoshigi / Koto pluck */
 export function playClick() {
-  playTone(620, 0.05, 'triangle', 0.08);
+  playTone(587.33, 0.06, 'triangle', 0.08); // D5
 }
 
+/** Ascending Japanese Yo pentatonic chime (D5 -> A5) */
 export function playSuccess() {
-  playTone(587.33, 0.11, 'sine', 0.13, 0);
-  playTone(880, 0.16, 'sine', 0.14, 0.07);
+  playTone(587.33, 0.14, 'triangle', 0.12, 0); // D5
+  playTone(880.0, 0.22, 'sine', 0.13, 0.065); // A5
 }
 
+/** Low muted Taiko / Shakuhachi error tone */
 export function playError() {
-  playTone(220, 0.16, 'sawtooth', 0.09, 0);
-  playTone(175, 0.22, 'sawtooth', 0.08, 0.09);
+  playTone(220.0, 0.16, 'sawtooth', 0.07, 0);
+  playTone(196.0, 0.22, 'triangle', 0.09, 0.08);
 }
 
+/** Celebratory Japanese Yo Pentatonic Koto arpeggio (D5 -> E5 -> G5 -> A5 -> D6) */
 export function playVictory() {
-  playTone(523.25, 0.14, 'triangle', 0.15, 0); // C5
-  playTone(659.25, 0.14, 'triangle', 0.15, 0.09); // E5
-  playTone(783.99, 0.16, 'triangle', 0.15, 0.18); // G5
-  playTone(1046.5, 0.34, 'triangle', 0.17, 0.27); // C6
+  playTone(587.33, 0.22, 'triangle', 0.14, 0); // D5
+  playTone(659.25, 0.22, 'triangle', 0.14, 0.075); // E5
+  playTone(783.99, 0.24, 'triangle', 0.14, 0.15); // G5
+  playTone(880.0, 0.26, 'triangle', 0.15, 0.225); // A5
+  playTone(1174.66, 0.45, 'sine', 0.16, 0.31); // D6
 }
 
+/** Gentle Miyako-bushi descending cadence (A4 -> F4 -> E4 -> D4) */
 export function playDefeat() {
-  playTone(392.0, 0.18, 'triangle', 0.12, 0); // G4
-  playTone(349.23, 0.18, 'triangle', 0.12, 0.14); // F4
-  playTone(293.66, 0.32, 'triangle', 0.12, 0.28); // D4
+  playTone(440.0, 0.2, 'triangle', 0.11, 0); // A4
+  playTone(349.23, 0.22, 'triangle', 0.11, 0.13); // F4
+  playTone(329.63, 0.34, 'sine', 0.11, 0.26); // E4
 }
 
 export function playTick() {
-  playTone(980, 0.04, 'sine', 0.06);
+  playTone(1046.5, 0.045, 'sine', 0.05);
 }

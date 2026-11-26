@@ -1,104 +1,117 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function SudokuLogicMenu() {
   const games = [
     {
-      id: "blind-sudoku",
-      name: "Blind Sudoku",
-      vnName: "Sudoku Mù",
-      desc: "Thử thách trí nhớ ngắn hạn. Ghi nhớ bảng số trong vài giây rồi điền lại vào bảng trắng.",
-      difficulty: "Trí Nhớ",
-      color: "border-purple-500 shadow-purple-500/20",
-      btnColor: "bg-purple-600 hover:bg-purple-500",
-      link: "/sudoku-logic/blind"
+      id: 'blind-sudoku',
+      kanji: '盲',
+      name: 'Blind Sudoku',
+      vnName: 'Sudoku Mù',
+      desc: 'Ghi nhớ bảng số trong khoảnh khắc rồi tái hiện và giải hoàn chỉnh trên bảng trắng.',
+      difficulty: 'Trí Nhớ',
+      ribbon: 'from-[#7d5296] to-[#c8a2d6]',
+      btnColor: 'bg-gradient-to-r from-[#67417d] to-[#8f5ca8] hover:brightness-110',
+      link: '/sudoku-logic/blind',
     },
     {
-      id: "cube-sudoku",
-      name: "Cube Sudoku",
-      vnName: "Sudoku Lập Phương",
-      desc: "Giải Sudoku trên 6 mặt của một khối lập phương xoay 3D. Kiểm tra tư duy không gian.",
-      difficulty: "Không Gian",
-      color: "border-fuchsia-500 shadow-fuchsia-500/20",
-      btnColor: "bg-fuchsia-600 hover:bg-fuchsia-500",
-      link: "/sudoku-logic/cube"
+      id: 'cube-sudoku',
+      kanji: '立',
+      name: 'Cube Sudoku',
+      vnName: 'Sudoku Lập Phương 3D',
+      desc: 'Giải đồng thời 6 mặt Sudoku trên khối lập phương 3D xoay tự do — hỗ trợ tới cỡ 16×16.',
+      difficulty: 'Không Gian',
+      ribbon: 'from-[#9e4770] to-[#f4b8c8]',
+      btnColor: 'bg-gradient-to-r from-[#8c385f] to-[#b8537f] hover:brightness-110',
+      link: '/sudoku-logic/cube',
     },
     {
-      // --- ĐÃ CẬP NHẬT TỪ JIGSAW SANG CHROMATIC ---
-      id: "chromatic-sudoku",
-      name: "Chromatic Sudoku",
-      vnName: "Sudoku Sắc Màu",
-      desc: "Thử thách kép: Vừa giải Sudoku theo số, vừa giải theo màu sắc trên cùng một bàn cờ.",
-      difficulty: "Tư Duy Kép",
-      color: "border-cyan-500 shadow-cyan-500/20", // Đổi màu sang Cyan cho hợp theme
-      btnColor: "bg-cyan-600 hover:bg-cyan-500",
-      link: "/sudoku-logic/chromatic" // Đường dẫn mới
+      id: 'chromatic-sudoku',
+      kanji: '彩',
+      name: 'Chromatic Sudoku',
+      vnName: 'Sudoku Sắc Màu',
+      desc: 'Thử thách lưỡng tính: vừa giải Sudoku theo số, vừa giải theo màu sắc chồng trên cùng một bàn cờ.',
+      difficulty: 'Tư Duy Kép',
+      ribbon: 'from-[#3b6998] to-[#f4b8c8]',
+      btnColor: 'bg-gradient-to-r from-[#36608a] to-[#5788b5] hover:brightness-110',
+      link: '/sudoku-logic/chromatic',
     },
     {
-      id: "number-maze",
-      name: "Number Maze",
-      vnName: "Mê Cung Số",
-      desc: "Tìm đường đi ngắn nhất trong ma trận số học, tuân theo các quy luật logic đặc biệt.",
-      difficulty: "Logic",
-      color: "border-rose-500 shadow-rose-500/20",
-      btnColor: "bg-rose-600 hover:bg-rose-500",
-      link: "/sudoku-logic/maze"
-    }
+      id: 'number-maze',
+      kanji: '迷',
+      name: 'Number Maze',
+      vnName: 'Mê Cung Số',
+      desc: 'Tìm đường đi ngắn nhất xuyên qua ma trận số học theo luật Chẵn/Lẻ, Nguyên Tố hoặc Bội Số 3.',
+      difficulty: 'Logic',
+      ribbon: 'from-[#b8322c] to-[#e6c173]',
+      btnColor: 'bg-gradient-to-r from-[#9e2b26] to-[#c8463e] hover:brightness-110',
+      link: '/sudoku-logic/maze',
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans p-8 selection:bg-purple-500 selection:text-white">
-      {/* --- HEADER --- */}
-      <div className="max-w-6xl mx-auto mb-12">
-        <Link 
-          href="/" 
-          className="inline-flex items-center text-slate-400 hover:text-purple-400 transition-colors mb-6 group"
+    <div className="min-h-screen text-[#f6efe4] font-sans pt-20 pb-20 px-6 md:px-8">
+      <div className="max-w-5xl mx-auto mb-12 animate-fade-in">
+        <Link
+          href="/"
+          className="inline-flex items-center text-[#c7b2b5] hover:text-[#f4b8c8] transition-colors mb-6 group text-sm"
         >
-          <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">←</span> 
-          Quay lại Trang Chủ
+          <span className="mr-2 text-lg group-hover:-translate-x-1 transition-transform">←</span>
+          Quay lại Đạo Quán
         </Link>
-        
-        <h1 className="text-4xl md:text-6xl font-black mb-4">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-500">
-            Sudoku & Logic
+
+        <div className="flex items-center gap-3 mb-2">
+          <span className="jp-hanko px-2.5 py-0.5 rounded text-xs font-bold tracking-widest">
+            数独
           </span>
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#d9b56c]">
+            数独論理 • LOGIC VARIANTS
+          </span>
+        </div>
+
+        <h1 className="text-4xl md:text-6xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#dfc2eb] via-[#f4b8c8] to-[#e6c173]">
+          Sudoku &amp; Logic Số
         </h1>
-        <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-          Chào mừng đến với đấu trường của những con số và quy luật. Nơi tư duy logic, trí nhớ và khả năng quan sát không gian được đẩy lên giới hạn cao nhất.
+        <p className="text-[#c7b2b5] text-base md:text-lg max-w-2xl leading-relaxed">
+          Đấu trường của những con số và quy luật tổ hợp — nơi suy luận chặt chẽ, trí nhớ ảnh và tư duy 3D được đẩy tới cực hạn.
         </p>
       </div>
 
-      {/* --- GAME GRID --- */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {games.map((game) => (
-          <div 
+          <div
             key={game.id}
-            className={`relative group bg-slate-900 rounded-3xl p-8 border ${game.color} border-opacity-40 hover:border-opacity-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between h-full overflow-hidden`}
+            className="relative group jp-lacquer-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
           >
-             {/* Background Glow */}
-             <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-white to-transparent opacity-[0.03] rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-[0.08] transition-opacity" />
-
-             {/* Badge Độ Khó */}
-            <div className="absolute top-6 right-6 bg-slate-800/80 backdrop-blur text-[10px] uppercase font-bold text-slate-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
-              {game.difficulty}
-            </div>
-
-            <div className="relative z-10 mb-8">
-              <h3 className="text-3xl font-black text-white mb-1 font-mono tracking-tighter">{game.name}</h3>
-              <h4 className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4">
-                {game.vnName}
-              </h4>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                {game.desc}
-              </p>
-            </div>
-
-            {/* Button */}
-            <Link 
-              href={game.link}
-              className={`relative z-10 block w-full text-center py-4 rounded-xl font-bold text-white transition-all transform active:scale-[0.98] shadow-lg ${game.btnColor}`}
+            <div className={`h-1.5 w-full bg-gradient-to-r ${game.ribbon}`} />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-2 -bottom-4 text-[110px] leading-none font-bold text-[#c8a2d6] opacity-[0.06] group-hover:opacity-[0.12] transition-opacity select-none"
+              style={{ fontFamily: 'var(--font-jp)' }}
             >
-              CHƠI NGAY
-            </Link>
+              {game.kanji}
+            </div>
+
+            <div className="p-7 flex-1 flex flex-col justify-between relative z-10">
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-[#dfc2eb] text-xs font-bold uppercase tracking-widest">
+                    {game.vnName}
+                  </span>
+                  <span className="bg-[#2b1d23] text-[10px] uppercase font-bold text-[#e6c173] px-3 py-1 rounded-full border border-[#d9b56c]/35">
+                    {game.difficulty}
+                  </span>
+                </div>
+                <h2 className="text-2xl font-black text-[#f6efe4] mb-3">{game.name}</h2>
+                <p className="text-[#cfc0be] text-sm leading-relaxed">{game.desc}</p>
+              </div>
+
+              <Link
+                href={game.link}
+                className={`block w-full text-center py-3.5 rounded-xl font-bold text-[#fff8f3] border border-white/15 transition-all active:scale-[0.98] shadow-lg ${game.btnColor}`}
+              >
+                Chơi Ngay →
+              </Link>
+            </div>
           </div>
         ))}
       </div>

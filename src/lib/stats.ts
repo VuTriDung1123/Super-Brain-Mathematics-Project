@@ -55,43 +55,43 @@ export const CATEGORY_META: Record<
   'mental-math': {
     title: 'Tính nhẩm siêu tốc',
     shortLabel: 'Tính Nhẩm',
-    colorHex: '#06b6d4',
-    badgeClass: 'text-cyan-400 border-cyan-500/40 bg-cyan-950/40',
+    colorHex: '#6ea8c9', // Asagi-iro (Traditional Pale Indigo)
+    badgeClass: 'text-[#8ec5e6] border-[#6ea8c9]/40 bg-[#1b2936]/60',
     href: '/mental-math',
   },
   'sudoku-logic': {
     title: 'Sudoku & Logic Số',
     shortLabel: 'Sudoku & Logic',
-    colorHex: '#a855f7',
-    badgeClass: 'text-purple-400 border-purple-500/40 bg-purple-950/40',
+    colorHex: '#c09bd8', // Fuji-iro (Wisteria Purple)
+    badgeClass: 'text-[#d8b4f0] border-[#c09bd8]/40 bg-[#2c1d38]/60',
     href: '/sudoku-logic',
   },
   spatial: {
     title: 'Hình học & Không gian',
     shortLabel: 'Không Gian 3D',
-    colorHex: '#f97316',
-    badgeClass: 'text-orange-400 border-orange-500/40 bg-orange-950/40',
+    colorHex: '#e5b85c', // Kohaku / Kinpaku Gold
+    badgeClass: 'text-[#f3d37a] border-[#d4af37]/40 bg-[#332713]/60',
     href: '/spatial',
   },
   'applied-math': {
     title: 'Toán ứng dụng & Mã hóa',
     shortLabel: 'Toán Ứng Dụng',
-    colorHex: '#10b981',
-    badgeClass: 'text-emerald-400 border-emerald-500/40 bg-emerald-950/40',
+    colorHex: '#6db58c', // Rokushō / Matcha Jade
+    badgeClass: 'text-[#8fd4ac] border-[#6db58c]/40 bg-[#172e23]/60',
     href: '/applied-math',
   },
   battle: {
     title: 'Tốc độ & Độ chính xác',
     shortLabel: 'Tốc Độ & AI',
-    colorHex: '#f43f5e',
-    badgeClass: 'text-rose-400 border-rose-500/40 bg-rose-950/40',
+    colorHex: '#e05248', // Shu-iro (Torii Vermilion)
+    badgeClass: 'text-[#f2857d] border-[#c83e37]/50 bg-[#381617]/60',
     href: '/battle',
   },
   classic: {
     title: 'Siêu Trí Tuệ Kinh Điển',
     shortLabel: 'Kinh Điển',
-    colorHex: '#8b5cf6',
-    badgeClass: 'text-violet-400 border-violet-500/40 bg-violet-950/40',
+    colorHex: '#f7c6d4', // Sakura-iro (Cherry Blossom)
+    badgeClass: 'text-[#fbd5df] border-[#f7c6d4]/45 bg-[#381a26]/60',
     href: '/classic',
   },
 };

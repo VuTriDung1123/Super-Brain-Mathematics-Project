@@ -17,33 +17,40 @@ export function HomeStatsBar() {
     stats.totalPlays > 0 ? Math.round((stats.totalWins / stats.totalPlays) * 100) : 0;
 
   return (
-    <div className="max-w-6xl mx-auto mb-10 bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 shadow-xl animate-fade-in">
-      <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+    <div className="max-w-6xl mx-auto mb-10 wafu-card rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 animate-fade-in relative overflow-hidden">
+      {/* Subtle Kintsugi corner flourishes */}
+      <span className="pointer-events-none absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#d4af37]/60 rounded-tl-2xl" />
+      <span className="pointer-events-none absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#d4af37]/60 rounded-br-2xl" />
+
+      <div className="flex flex-wrap items-center gap-6 sm:gap-9">
         <div>
-          <div className="text-[11px] uppercase font-bold tracking-wider text-slate-500">
-            Lượt luyện tập
+          <div className="text-[10px] uppercase font-bold tracking-[0.18em] text-[#b496a0]">
+            Lượt tu luyện
           </div>
-          <div className="text-2xl font-mono font-black text-white">{stats.totalPlays}</div>
+          <div className="text-2xl font-mono font-black text-[#fdf6ec]">{stats.totalPlays}</div>
         </div>
+        <div className="hidden sm:block w-px h-8 bg-[#d4af37]/20" />
         <div>
-          <div className="text-[11px] uppercase font-bold tracking-wider text-slate-500">
-            Đã chinh phục
+          <div className="text-[10px] uppercase font-bold tracking-[0.18em] text-[#b496a0]">
+            Bí kíp đã mở
           </div>
-          <div className="text-2xl font-mono font-black text-cyan-400">
+          <div className="text-2xl font-mono font-black text-[#f7c6d4]">
             {conqueredGames}/{GAME_CATALOG.length}
           </div>
         </div>
+        <div className="hidden sm:block w-px h-8 bg-[#d4af37]/20" />
         <div>
-          <div className="text-[11px] uppercase font-bold tracking-wider text-slate-500">
+          <div className="text-[10px] uppercase font-bold tracking-[0.18em] text-[#b496a0]">
             Tỉ lệ thắng
           </div>
-          <div className="text-2xl font-mono font-black text-emerald-400">{winRate}%</div>
+          <div className="text-2xl font-mono font-black text-[#8fd4ac]">{winRate}%</div>
         </div>
+        <div className="hidden sm:block w-px h-8 bg-[#d4af37]/20" />
         <div>
-          <div className="text-[11px] uppercase font-bold tracking-wider text-slate-500">
+          <div className="text-[10px] uppercase font-bold tracking-[0.18em] text-[#b496a0]">
             Chuỗi ngày
           </div>
-          <div className="text-2xl font-mono font-black text-amber-400">
+          <div className="text-2xl font-mono font-black text-[#e6c173]">
             🔥 {stats.currentStreak}
           </div>
         </div>
@@ -51,9 +58,9 @@ export function HomeStatsBar() {
 
       <Link
         href="/profile"
-        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-sm font-bold text-white shadow-lg transition-all"
+        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#b8322a] to-[#c83e37] hover:from-[#c83e37] hover:to-[#e05248] border border-[#f7c6d4]/30 text-sm font-bold text-[#fff8f5] shadow-lg shadow-[#c83e37]/25 transition-all"
       >
-        Xem Biểu Đồ &amp; Kỷ Lục →
+        📜 Mở Cuộn Hồ Sơ →
       </Link>
     </div>
   );
@@ -65,7 +72,7 @@ export function CategoryProgressBadge({ category }: { category: CategoryId }) {
   const wonCount = catGames.filter((g) => (stats.games[g.id]?.wins ?? 0) > 0).length;
 
   return (
-    <span className="px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-full bg-slate-800/90 text-slate-300 border border-slate-700">
+    <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold rounded-full bg-[#2a1d24] text-[#f3d37a] border border-[#d4af37]/35">
       {wonCount}/{catGames.length} hoàn thành
     </span>
   );

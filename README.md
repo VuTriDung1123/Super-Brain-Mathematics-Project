@@ -1,9 +1,9 @@
 <div align="center">
 
-# 🧠 SIÊU TRÍ TUỆ — The Brain Training Center
+# ⛩️ SIÊU TRÍ TUỆ — 超頭脳道場 (The Brain Dojo)
 
-**Nền tảng rèn luyện tư duy toán học, trí nhớ, không gian 3D, mật mã học và tốc độ phản xạ**  
-*Lấy cảm hứng từ chương trình truyền hình **The Brain (Siêu Trí Tuệ)***
+**Đạo quán rèn luyện tư duy toán học, trí nhớ, không gian 3D, mật mã học và tốc độ phản xạ**  
+*Lấy cảm hứng từ chương trình **The Brain (Siêu Trí Tuệ)** trong không gian nghệ thuật Nhật Bản cổ điển (**Yozakura** — Hoa Anh Đào Đêm & Sơn mài **Kuro-Urushi**)*
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
@@ -90,17 +90,19 @@ Mọi bài toán đều được **sinh động (procedural generation)** và **
 my-brain-game/
 ├── src/
 │   ├── components/
-│   │   ├── GlobalToolbar.tsx         # Thanh điều hướng nổi (Trang chủ, Hồ sơ, Streak, nút bật/tắt SFX)
-│   │   └── HomeStatsBar.tsx          # Thanh tóm tắt kỷ lục & tiến độ chinh phục trực tiếp trên Trang chủ
+│   │   ├── SakuraBackdrop.tsx        # Nền hoa văn sóng Seigaiha, cành hoa anh đào & cánh hoa rơi SVG (có công tắc bật/tắt)
+│   │   ├── GlobalToolbar.tsx         # Thanh công cụ Đạo Quán (Đạo Quán, Hồ Sơ, Streak, bật/tắt Hoa Anh Đào & Âm thanh)
+│   │   └── HomeStatsBar.tsx          # Bảng thành tích sơn mài & tiến độ chinh phục trên Trang chủ
 │   ├── hooks/
 │   │   └── useGameResultRecorder.ts  # Hook tự động phát âm thanh kết quả & ghi nhận phiên luyện tập
 │   ├── lib/
 │   │   ├── sudoku.ts                 # Bộ engine Sudoku dùng chung (sinh bảng O(N²), MRV solver, validator)
-│   │   ├── sound.ts                  # Bộ tổng hợp âm thanh hiệu ứng Web Audio API (không cần file audio ngoài)
-│   │   └── stats.ts                  # Kho lưu kỷ lục, streak ngày, lịch sử phiên & chỉ số Radar 5 trục
+│   │   ├── sound.ts                  # Tổng hợp âm thanh ngũ cung Nhật Bản (Koto / Furin / Hyoshigi) qua Web Audio API
+│   │   ├── themeEffects.ts           # Trạng thái bật/tắt hiệu ứng hoa anh đào lưu cục bộ (useSyncExternalStore)
+│   │   └── stats.ts                  # Kho lưu kỷ lục, streak ngày, lịch sử phiên & chỉ số Radar 6 trục
 │   └── app/
-│       ├── layout.tsx                # Root Layout, font Geist, metadata SEO & GlobalToolbar
-│       ├── globals.css               # Tailwind CSS v4 & custom keyframe animations
+│       ├── layout.tsx                # Root Layout, font Noto Serif + Shippori Mincho + Be Vietnam Pro, SakuraBackdrop & GlobalToolbar
+│       ├── globals.css               # Bảng màu Nhật cổ (Urushi, Shu-iro, Sakura, Kinpaku), hoa văn Seigaiha & hiệu ứng cánh hoa rơi
 │       ├── page.tsx                  # Trang chủ điều hướng 6 hạng mục + tiến độ hoàn thành
 │       ├── profile/                  # Trang Hồ sơ & Biểu đồ Radar 6 trục + lịch sử luyện tập
 │       ├── mental-math/              # Hạng mục 1: 4 trò chơi tính nhẩm
@@ -117,8 +119,9 @@ my-brain-game/
 ### Thuật toán & Kỹ thuật nổi bật
 - **Toán học chính xác trên số cực lớn**: Sử dụng `BigInt` kết hợp phương pháp Newton để khai căn bậc cao tới 100 chữ số/bậc trong vài micro-giây mà không mất độ chính xác dấu phẩy động.
 - **Sudoku Solver tốc độ cao (`src/lib/sudoku.ts`)**: Sinh bảng đã giải hợp lệ cho mọi cỡ `4×4 / 6×6 / 9×9 / 16×16` trong `O(N²)` bằng phép hoán vị bảo toàn cấu trúc, kết hợp tìm kiếm quay lui **MRV (Minimum Remaining Values)** để bảo đảm tính duy nhất của nghiệm.
-- **Đồ họa 3D & Vector tương tác**: Kết hợp `@react-three/fiber` + `@react-three/drei` cho khối lập phương Sudoku 6 mặt, khối gập triển khai 3D và mê cung không gian 3D; SVG động cho biểu đồ Radar 5 trục, sóng nhị phân, quỹ đạo đạn đạo, buồng laser và đồ thị.
-- **Âm thanh, Giọng nói & Hồ sơ lưu trữ cục bộ**: Tổng hợp hiệu ứng âm thanh (SFX) toàn cục bằng **Web Audio API** có nút bật/tắt tức thì trên thanh công cụ, **Web Speech API** cho tính nhẩm song hành, và hệ thống lưu kỷ lục/chuỗi ngày (`localStorage` + React 19 `useSyncExternalStore`) không cần backend.
+- **Đồ họa 3D & Vector tương tác**: Kết hợp `@react-three/fiber` + `@react-three/drei` cho khối lập phương Sudoku 6 mặt, khối gập triển khai 3D và mê cung không gian 3D; SVG động cho biểu đồ Radar 6 trục, sóng nhị phân, quỹ đạo đạn đạo, buồng laser và đồ thị.
+- **Thẩm mỹ Nhật Bản cổ điển (*Yozakura & Kuro-Urushi*)**: Hệ màu sơn mài đen ánh mận (`#120c0f`), đỏ chu sa ấn triện Hanko (`#c83e37`), vàng kim Kintsugi (`#d9b56c`), hồng hoa anh đào (`#f4b8c8`) cùng nền sóng truyền thống **Seigaiha**, font thư pháp `Noto Serif` + `Shippori Mincho`, và hiệu ứng hoa anh đào rơi mượt mà có thể bật/tắt tức thì.
+- **Âm thanh ngũ cung Nhật Bản & Hồ sơ lưu trữ cục bộ**: Tổng hợp hiệu ứng âm thanh đàn **Koto / chuông gió Furin** (âm giai Yo pentatonic) bằng **Web Audio API**, **Web Speech API** cho tính nhẩm song hành, và hệ thống lưu kỷ lục/chuỗi ngày (`localStorage` + React 19 `useSyncExternalStore`) không cần backend.
 
 ---
 

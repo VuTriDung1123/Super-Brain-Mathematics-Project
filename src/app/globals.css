@@ -1,23 +1,119 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #120c0f;
+  --foreground: #f6efe4;
+  --jp-urushi: #120c0f;
+  --jp-lacquer: #1d1418;
+  --jp-bark: #2b1d23;
+  --jp-sakura: #f4b8c8;
+  --jp-sakura-deep: #d96b86;
+  --jp-shu: #c83e37;
+  --jp-gold: #d9b56c;
+  --jp-washi: #f6efe4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Traditional Japanese Sumi-Urushi lacquerware surface scale
+     Automatically transforms all 33 game surfaces from cold blue-slate
+     to warm Kyoto lacquer, sakura bark, antique bronze & washi parchment */
+  --color-slate-950: #120c0f;
+  --color-slate-900: #1d1418;
+  --color-slate-800: #2b1d23;
+  --color-slate-700: #48313a;
+  --color-slate-600: #664954;
+  --color-slate-500: #997e85;
+  --color-slate-400: #c7b2b5;
+  --color-slate-300: #e7dad2;
+  --color-slate-200: #f3eae2;
+
+  /* Harmonize accents subtly toward Japanese Nihonga pigments */
+  --color-amber-400: #e6c173;
+  --color-amber-500: #d4a64e;
+  --color-rose-400: #f29bb0;
+  --color-rose-500: #dc6480;
+  --color-pink-400: #f4b2c4;
+  --color-pink-500: #df7796;
+
+  --font-sans: var(--font-be-vietnam), "Segoe UI", sans-serif;
+  --font-serif: var(--font-noto-serif), "Yu Mincho", "Hiragino Mincho ProN", Georgia, serif;
+  --font-jp: "Yu Mincho", "Hiragino Mincho ProN", "MS PMincho", var(--font-noto-serif), serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background-color: var(--jp-urushi);
+  color: var(--jp-washi);
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 85% 0%, rgba(217, 107, 134, 0.13), transparent 65%),
+    radial-gradient(ellipse 60% 45% at 12% 100%, rgba(217, 181, 108, 0.08), transparent 60%);
+  background-attachment: fixed;
 }
 
+/* Classical Japanese serif styling for primary titles across all 33 games */
+h1,
+h2 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+/* Subtle traditional Seigaiha (Japanese ocean wave) lacquer pattern overlay */
+.jp-seigaiha-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23e6c173' stroke-width='0.7' stroke-opacity='0.14'%3E%3Ccircle cx='40' cy='40' r='36'/%3E%3Ccircle cx='40' cy='40' r='27'/%3E%3Ccircle cx='40' cy='40' r='18'/%3E%3Ccircle cx='40' cy='40' r='9'/%3E%3Ccircle cx='0' cy='40' r='36'/%3E%3Ccircle cx='0' cy='40' r='27'/%3E%3Ccircle cx='0' cy='40' r='18'/%3E%3Ccircle cx='0' cy='40' r='9'/%3E%3Ccircle cx='80' cy='40' r='36'/%3E%3Ccircle cx='80' cy='40' r='27'/%3E%3Ccircle cx='80' cy='40' r='18'/%3E%3Ccircle cx='80' cy='40' r='9'/%3E%3Ccircle cx='20' cy='20' r='36'/%3E%3Ccircle cx='20' cy='20' r='27'/%3E%3Ccircle cx='20' cy='20' r='18'/%3E%3Ccircle cx='20' cy='20' r='9'/%3E%3Ccircle cx='60' cy='20' r='36'/%3E%3Ccircle cx='60' cy='20' r='27'/%3E%3Ccircle cx='60' cy='20' r='18'/%3E%3Ccircle cx='60' cy='20' r='9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 48px;
+}
+
+/* Traditional Hanko (vermilion ink stamp seal) */
+.jp-hanko,
+.hanko-seal {
+  font-family: var(--font-jp);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #c83e37;
+  color: #f4b8c8;
+  background: rgba(200, 62, 55, 0.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(200, 62, 55, 0.45),
+    0 4px 18px rgba(200, 62, 55, 0.28);
+}
+
+.font-jp-serif {
+  font-family: var(--font-serif);
+}
+
+/* Kintsugi gold hairline card treatment */
+.jp-lacquer-card,
+.wafu-card {
+  background: linear-gradient(160deg, rgba(35, 23, 28, 0.94), rgba(22, 14, 18, 0.97));
+  border: 1px solid rgba(217, 181, 108, 0.24);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.48);
+}
+
+.jp-lacquer-card:hover,
+.wafu-card:hover {
+  border-color: rgba(244, 184, 200, 0.55);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.62),
+    0 0 28px rgba(217, 107, 134, 0.16);
+}
+
+/* Make existing game bg-slate-950 wrappers softly reveal the global sakura backdrop */
+main.bg-slate-950,
+div.min-h-screen.bg-slate-950 {
+  background-color: rgba(18, 12, 15, 0.86);
+}
+
+::selection {
+  background: rgba(217, 107, 134, 0.45);
+  color: #fff8f5;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -54,7 +150,8 @@ body {
 }
 
 @keyframes bounceShort {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -63,14 +160,38 @@ body {
 }
 
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  20%, 60% {
+  20%,
+  60% {
     transform: translateX(-6px);
   }
-  40%, 80% {
+  40%,
+  80% {
     transform: translateX(6px);
+  }
+}
+
+@keyframes sakuraFall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--petal-opacity, 0.55);
+  }
+  50% {
+    transform: translate3d(var(--sway-x, 48px), 50vh, 0) rotate(175deg);
+    opacity: var(--petal-opacity, 0.55);
+  }
+  90% {
+    opacity: var(--petal-opacity, 0.45);
+  }
+  100% {
+    transform: translate3d(calc(var(--sway-x, 48px) * -0.4), 112vh, 0) rotate(360deg);
+    opacity: 0;
   }
 }
 
@@ -94,21 +215,36 @@ body {
   animation: shake 0.35s ease-in-out;
 }
 
+.sakura-petal {
+  position: absolute;
+  top: -8vh;
+  animation-name: sakuraFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sakura-petal {
+    display: none;
+  }
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #1d1418;
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #5c4049;
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #d9b56c;
 }

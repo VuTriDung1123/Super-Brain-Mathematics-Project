@@ -4,95 +4,114 @@ export default function SpatialMenu() {
   const games = [
     {
       id: 'cube-folding',
+      kanji: '折',
       name: 'Cube Net Folding',
       vnName: 'Triển Khai Hình Khối',
-      desc: 'Quan sát bản trải phẳng 2D của khối lập phương và tưởng tượng trạng thái gấp thành khối 3D chính xác.',
+      desc: 'Quan sát 11 mẫu trải phẳng 2D của khối lập phương và tưởng tượng trạng thái gấp thành khối 3D chính xác.',
       difficulty: 'Không Gian 3D',
-      color: 'border-orange-500 shadow-orange-500/20',
-      btnColor: 'bg-orange-600 hover:bg-orange-500',
+      ribbon: 'from-[#b86f2c] to-[#f2d096]',
+      btnColor: 'bg-gradient-to-r from-[#a65c1f] to-[#cc8436] hover:brightness-110',
       link: '/spatial/cube-folding',
     },
     {
       id: 'tangram',
+      kanji: '巧',
       name: 'Tangram Studio',
       vnName: 'Ghép Hình Tangram',
-      desc: 'Tái cấu trúc 7 mảnh hình học kinh điển (xoay, lật, ghép khớp) để hoàn thiện các hình bóng phức tạp.',
+      desc: 'Tái cấu trúc 7 mảnh hình học kinh điển (xoay 45°, lật gương, ghép khớp) để hoàn thiện các hình bóng.',
       difficulty: 'Tạo Hình',
-      color: 'border-amber-500 shadow-amber-500/20',
-      btnColor: 'bg-amber-600 hover:bg-amber-500',
+      ribbon: 'from-[#c78f2e] to-[#f6d58e]',
+      btnColor: 'bg-gradient-to-r from-[#9e6c1d] to-[#c99538] hover:brightness-110',
       link: '/spatial/tangram',
     },
     {
       id: 'maze-3d',
+      kanji: '宙',
       name: 'Spatial 3D Maze',
-      vnName: 'Mê Cung Không Gian',
-      desc: 'Điều hướng trong mạng lưới mê cung lập phương đa tầng 3D thực thụ với chế độ quan sát hoặc sương mù.',
+      vnName: 'Mê Cung Không Gian 3D',
+      desc: 'Điều hướng trong mạng lưới mê cung lập phương đa tầng 3D thực thụ với chế độ toàn cảnh hoặc sương mù.',
       difficulty: 'Định Hướng',
-      color: 'border-yellow-500 shadow-yellow-500/20',
-      btnColor: 'bg-yellow-600 hover:bg-yellow-500',
+      ribbon: 'from-[#b88435] to-[#f4b8c8]',
+      btnColor: 'bg-gradient-to-r from-[#8f6424] to-[#bd8838] hover:brightness-110',
       link: '/spatial/maze-3d',
     },
     {
       id: 'geometry',
+      kanji: '形',
       name: 'Geometric Decomposition',
       vnName: 'Phân Hình Học',
-      desc: 'Đếm hình ẩn trong cấu trúc phức hợp, tính số khối lập phương xếp chồng và nhận diện phép xoay không gian.',
+      desc: 'Đếm tam giác ẩn trong cấu trúc phức hợp, tính số khối lập phương xếp chồng và nhận diện phép xoay.',
       difficulty: 'Thị Giác',
-      color: 'border-red-500 shadow-red-500/20',
-      btnColor: 'bg-red-600 hover:bg-red-500',
+      ribbon: 'from-[#c83e37] to-[#e6b873]',
+      btnColor: 'bg-gradient-to-r from-[#a62e29] to-[#c95343] hover:brightness-110',
       link: '/spatial/geometry',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans p-8 selection:bg-orange-500 selection:text-white">
-      <div className="max-w-6xl mx-auto mb-12">
+    <div className="min-h-screen text-[#f6efe4] font-sans pt-20 pb-20 px-6 md:px-8">
+      <div className="max-w-5xl mx-auto mb-12 animate-fade-in">
         <Link
           href="/"
-          className="inline-flex items-center text-slate-400 hover:text-orange-400 transition-colors mb-6 group"
+          className="inline-flex items-center text-[#c7b2b5] hover:text-[#f4b8c8] transition-colors mb-6 group text-sm"
         >
-          <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">←</span>
-          Quay lại Trang Chủ
+          <span className="mr-2 text-lg group-hover:-translate-x-1 transition-transform">←</span>
+          Quay lại Đạo Quán
         </Link>
 
-        <h1 className="text-4xl md:text-6xl font-black mb-4">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400">
-            Hình Học &amp; Không Gian
+        <div className="flex items-center gap-3 mb-2">
+          <span className="jp-hanko px-2.5 py-0.5 rounded text-xs font-bold tracking-widest">
+            空間
           </span>
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#d9b56c]">
+            空間幾何 • SPATIAL REASONING
+          </span>
+        </div>
+
+        <h1 className="text-4xl md:text-6xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#f6d58e] via-[#f2d096] to-[#f4b8c8]">
+          Hình Học &amp; Không Gian
         </h1>
-        <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-          Spatial Reasoning • Rèn luyện năng lực xoay hình trong tâm trí, gập mở khối đa diện 3D, phân tách hình học và định hướng không gian đa chiều.
+        <p className="text-[#c7b2b5] text-base md:text-lg max-w-2xl leading-relaxed">
+          Rèn luyện năng lực xoay hình trong tâm trí, gập mở khối đa diện 3D, phân tách hình học và định hướng không gian đa chiều.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {games.map((game) => (
           <div
             key={game.id}
-            className={`relative group bg-slate-900 rounded-3xl p-8 border ${game.color} border-opacity-40 hover:border-opacity-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between h-full overflow-hidden`}
+            className="relative group jp-lacquer-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
           >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-white to-transparent opacity-[0.03] rounded-full blur-3xl -mr-10 -mt-10 group-hover:opacity-[0.08] transition-opacity" />
-
-            <div className="absolute top-6 right-6 bg-slate-800/80 backdrop-blur text-[10px] uppercase font-bold text-slate-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
-              {game.difficulty}
-            </div>
-
-            <div className="relative z-10 mb-8">
-              <h3 className="text-3xl font-black text-white mb-1 font-mono tracking-tighter">
-                {game.name}
-              </h3>
-              <h4 className="text-orange-400 text-xs font-bold uppercase tracking-widest mb-4">
-                {game.vnName}
-              </h4>
-              <p className="text-slate-400 leading-relaxed text-sm">{game.desc}</p>
-            </div>
-
-            <Link
-              href={game.link}
-              className={`relative z-10 block w-full text-center py-4 rounded-xl font-bold text-white transition-all transform active:scale-[0.98] shadow-lg ${game.btnColor}`}
+            <div className={`h-1.5 w-full bg-gradient-to-r ${game.ribbon}`} />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-2 -bottom-4 text-[110px] leading-none font-bold text-[#e6b873] opacity-[0.06] group-hover:opacity-[0.12] transition-opacity select-none"
+              style={{ fontFamily: 'var(--font-jp)' }}
             >
-              BẮT ĐẦU THỬ THÁCH
-            </Link>
+              {game.kanji}
+            </div>
+
+            <div className="p-7 flex-1 flex flex-col justify-between relative z-10">
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-[#f2d096] text-xs font-bold uppercase tracking-widest">
+                    {game.vnName}
+                  </span>
+                  <span className="bg-[#2b1d23] text-[10px] uppercase font-bold text-[#e6c173] px-3 py-1 rounded-full border border-[#d9b56c]/35">
+                    {game.difficulty}
+                  </span>
+                </div>
+                <h2 className="text-2xl font-black text-[#f6efe4] mb-3">{game.name}</h2>
+                <p className="text-[#cfc0be] text-sm leading-relaxed">{game.desc}</p>
+              </div>
+
+              <Link
+                href={game.link}
+                className={`block w-full text-center py-3.5 rounded-xl font-bold text-[#fff8f3] border border-white/15 transition-all active:scale-[0.98] shadow-lg ${game.btnColor}`}
+              >
+                Bắt Đầu Thử Thách →
+              </Link>
+            </div>
           </div>
         ))}
       </div>
