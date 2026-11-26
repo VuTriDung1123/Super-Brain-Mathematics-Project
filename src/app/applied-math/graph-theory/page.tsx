@@ -140,7 +140,6 @@ function generateGraphPuzzle(difficulty: Difficulty): GraphPuzzle {
   const cx = 310;
   const cy = 225;
   const radiusX = 225;
-  const radiusY = 165;
 
   // Clean polygon layout: Start at far left (index 0), End at far right (index n-1)
   const nodes: GraphNode[] = [];
