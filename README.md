@@ -17,13 +17,13 @@
 
 ## 📌 Giới thiệu
 
-**Super Brain Mathematics Project** là một trung tâm huấn luyện não bộ tương tác chạy trực tiếp trên trình duyệt, quy tụ **5 hạng mục chuyên sâu** với **17 trò chơi** trải rộng từ tính nhẩm tốc độ cao (Soroban, khai căn số lớn `BigInt`), biến thể Sudoku & mê cung logic, hình học không gian 3D thời gian thực, toán ứng dụng & mật mã học cho tới đấu trường đối kháng AI đo tốc độ mili-giây.
+**Super Brain Mathematics Project** là một trung tâm huấn luyện não bộ tương tác chạy trực tiếp trên trình duyệt, quy tụ **6 hạng mục chuyên sâu** với **33 trò chơi** trải rộng từ tính nhẩm tốc độ cao (Soroban, khai căn số lớn `BigInt`), biến thể Sudoku & mê cung logic, hình học không gian 3D thời gian thực, toán ứng dụng & mật mã học, đấu trường đối kháng AI cho tới tuyển tập **16 trò chơi kinh điển từ chương trình Siêu Trí Tuệ Việt Nam & Trung Quốc**.
 
 Mọi bài toán đều được **sinh động (procedural generation)** và **kiểm chứng bằng thuật toán toán học chính xác** (không dùng bộ câu hỏi tĩnh), đảm bảo giá trị luyện tập lâu dài ở nhiều cấp độ từ khởi động đến thử thách chuẩn "Siêu Trí Tuệ".
 
 ---
 
-## 🎮 Danh mục 5 Hạng mục & 17 Trò chơi
+## 🎮 Danh mục 6 Hạng mục & 33 Trò chơi
 
 ### 1. Tính Nhẩm Siêu Tốc (`/mental-math`)
 | Trò chơi | Đường dẫn | Mô tả & Điểm nổi bật |
@@ -62,6 +62,26 @@ Mọi bài toán đều được **sinh động (procedural generation)** và **
 | **Trận Chiến Tính Toán** | `/battle/math-arena` | Đấu tay đôi 1v1 thanh máu `100 HP` với 4 cấp độ AI (`ARIA-1` → `OMEGA-∞`), chuỗi Combo nhân sát thương, tùy chọn trắc nghiệm 4 phím hoặc nhập số Hardcore. |
 | **Phản Xạ Nhanh** | `/battle/quick-reflex` | Đo thời gian phản xạ từng câu theo mili-giây (`ms`) với Đúng/Sai siêu tốc, So sánh biểu thức, Hiệu ứng nhiễu Stroop và biểu đồ telemetry cuối phiên. |
 
+### 6. Siêu Trí Tuệ Kinh Điển (`/classic` — 16 Trò Chơi Huyền Thoại)
+| Nhóm | Trò chơi | Đường dẫn | Điểm nổi bật |
+|---|---|---|---|
+| **Logic Bàn Cờ** | **Mã Đi Tuần Ẩn** | `/classic/knights-tour` | Quân Mã đi hết bàn cờ `5×5 / 6×6 / 8×8` mỗi ô 1 lần, có chế độ **Ẩn dấu vết (Mù)** và gợi ý Warnsdorff. |
+| **Logic Bàn Cờ** | **Logic Tung Hoành** | `/classic/logic-bridges` | 2 chế độ: **Hashiwokakero** (xây cầu đảo số liên thông) & **Numberlink** (nối cặp số phủ kín 100% bảng). |
+| **Logic Bàn Cờ** | **Hoa Dung Đạo Số** | `/classic/sliding-puzzle` | Trượt khối `3×3 / 4×4 / 5×5` (15-Puzzle của Hà Du Quân) hỗ trợ trượt nhanh cả hàng/cột & phím mũi tên. |
+| **Logic Bàn Cờ** | **Giải Mã Ảnh Ẩn** | `/classic/nonogram` | Nonogram / Picross `5×5 / 7×7 / 10×10` tự động đánh dấu xanh hàng/cột đã khớp gợi ý. |
+| **Logic Bàn Cờ** | **Gỡ Rối Mạng Nhện** | `/classic/untangle` | Planarity — kéo thả các đỉnh đồ thị phẳng sao cho số giao cắt cạnh về `0`. |
+| **Không Gian** | **Ba Hình Chiếu 3D** | `/classic/three-view` | Đọc 3 hình chiếu đứng–bằng–cạnh chọn khối voxel đúng, kèm mô hình 3D Three.js xoay kiểm chứng. |
+| **Không Gian** | **Gấp Giấy Đục Lỗ** | `/classic/origami-punch` | Origami Hole Punch với nếp gấp ngang, dọc và đường chéo chính. |
+| **Không Gian** | **Mê Cung Tổ Ong** | `/classic/honeycomb-maze` | Mê cung lục giác 6 hướng (`19 / 37 / 61` ô), có chế độ **Ghi nhớ đi mù**. |
+| **Không Gian** | **Tầng Tầng Điệp Ảnh** | `/classic/layer-overlay` | Chồng `2` hoặc `3` thẻ hình học theo luật **Triệt tiêu XOR** hoặc **Hợp ảnh OR**. |
+| **Trí Nhớ** | **Bức Tường Điểm Ảnh** | `/classic/pixel-wall` | Ghi nhớ ma trận nhị phân tới `12×12` (144 ô) rồi chỉ ra đúng 1 ô duy nhất bị đảo trạng thái. |
+| **Trí Nhớ** | **Nhớ Bài Tây Siêu Tốc** | `/classic/speed-cards` | Ghi nhớ thứ tự `8 / 15 / 26 / 52` lá bài tây xáo trộn và xếp lại chính xác từng vị trí. |
+| **Trí Nhớ** | **Dual N-Back** | `/classic/dual-n-back` | Rèn trí nhớ làm việc kép (vị trí 3×3 + chữ cái đọc thành tiếng) từ `1-Back` tới `4-Back`. |
+| **Trí Nhớ** | **Truy Tìm Dấu Vết** | `/classic/path-memory` | Ghi nhớ lộ trình ánh sáng chạy qua ma trận và vẽ lại theo chiều **Xuôi** hoặc **Đảo ngược**. |
+| **Quan Sát & Toán** | **Bảng Schulte** | `/classic/schulte-table` | Quét mắt ngoại vi bảng `5×5 / 6×6 / 7×7` tăng/giảm dần có bấm giờ mili-giây. |
+| **Quan Sát & Toán** | **Ma Phương** | `/classic/magic-square` | Hoàn thiện ma phương `3×3 (15)`, `4×4 (34)`, `5×5 (65)` với bộ đếm tổng trực tiếp mọi hàng/cột/chéo. |
+| **Quan Sát & Toán** | **Tháp Hà Nội** | `/classic/tower-of-hanoi` | Chuyển `3–7` đĩa theo chuẩn tối ưu $2^n - 1$ bước, hỗ trợ phím `1/2/3` và chế độ **Tự động giải minh họa**. |
+
 ---
 
 ## ⚙️ Kiến trúc & Điểm nhấn kỹ thuật
@@ -81,13 +101,14 @@ my-brain-game/
 │   └── app/
 │       ├── layout.tsx                # Root Layout, font Geist, metadata SEO & GlobalToolbar
 │       ├── globals.css               # Tailwind CSS v4 & custom keyframe animations
-│       ├── page.tsx                  # Trang chủ điều hướng 5 hạng mục + tiến độ hoàn thành
-│       ├── profile/                  # Trang Hồ sơ & Biểu đồ Radar 5 trục + lịch sử luyện tập
+│       ├── page.tsx                  # Trang chủ điều hướng 6 hạng mục + tiến độ hoàn thành
+│       ├── profile/                  # Trang Hồ sơ & Biểu đồ Radar 6 trục + lịch sử luyện tập
 │       ├── mental-math/              # Hạng mục 1: 4 trò chơi tính nhẩm
 │       ├── sudoku-logic/             # Hạng mục 2: 4 trò chơi Sudoku & mê cung số
 │       ├── spatial/                  # Hạng mục 3: 4 trò chơi hình học & không gian 3D
 │       ├── applied-math/             # Hạng mục 4: 3 trò chơi mật mã, quỹ đạo & đồ thị
-│       └── battle/                   # Hạng mục 5: 2 trò chơi đối kháng & phản xạ
+│       ├── battle/                   # Hạng mục 5: 2 trò chơi đối kháng & phản xạ
+│       └── classic/                  # Hạng mục 6: 16 trò chơi Siêu Trí Tuệ Kinh Điển
 ├── next.config.ts                    # Cấu hình Next.js + React Compiler
 ├── tsconfig.json                     # Cấu hình TypeScript strict mode
 └── package.json
@@ -147,7 +168,7 @@ npm run start
 ## 🗺️ Định hướng mở rộng (Roadmap)
 
 - [x] Lưu kỷ lục cá nhân, chuỗi ngày luyện tập (streak) và lịch sử phiên bằng `localStorage`.
-- [x] Hồ sơ năng lực não bộ dạng biểu đồ Radar trên 5 nhóm kỹ năng (`/profile`).
+- [x] Hồ sơ năng lực não bộ dạng biểu đồ Radar trên 6 nhóm kỹ năng (`/profile`).
 - [x] Gói hiệu ứng âm thanh phản hồi (Web Audio SFX) có nút bật/tắt toàn cục trên thanh công cụ.
 - [ ] Đồng bộ đám mây (Cloud Sync) và bảng xếp hạng toàn cầu.
 - [ ] Chế độ thi đấu đối kháng trực tuyến (Multiplayer Realtime).
