@@ -39,8 +39,8 @@
   --color-pink-500: #df7796;
 
   --font-sans: var(--font-be-vietnam), "Segoe UI", sans-serif;
-  --font-serif: var(--font-noto-serif), "Yu Mincho", "Hiragino Mincho ProN", Georgia, serif;
-  --font-jp: "Yu Mincho", "Hiragino Mincho ProN", "MS PMincho", var(--font-noto-serif), serif;
+  --font-serif: var(--font-noto-serif), var(--font-shippori), Georgia, serif;
+  --font-jp: var(--font-shippori), var(--font-noto-serif), serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 

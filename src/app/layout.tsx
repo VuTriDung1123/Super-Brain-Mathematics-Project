@@ -3,6 +3,7 @@ import {
   Be_Vietnam_Pro,
   Geist_Mono,
   Noto_Serif,
+  Shippori_Mincho,
 } from "next/font/google";
 import GlobalToolbar from "@/components/GlobalToolbar";
 import SakuraBackdrop from "@/components/SakuraBackdrop";
@@ -17,6 +18,13 @@ const beVietnamPro = Be_Vietnam_Pro({
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin", "vietnamese"],
+  weight: ["400", "600", "700", "900"],
+});
+
+const shipporiMincho = Shippori_Mincho({
+  variable: "--font-shippori",
+  subsets: ["latin"],
+  weight: ["500", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -38,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${beVietnamPro.variable} ${notoSerif.variable} ${geistMono.variable} antialiased bg-slate-950 text-[#f6efe4] overflow-x-hidden`}
+        className={`${beVietnamPro.variable} ${notoSerif.variable} ${shipporiMincho.variable} ${geistMono.variable} antialiased bg-slate-950 text-[#f6efe4] overflow-x-hidden`}
       >
         <SakuraBackdrop />
         <GlobalToolbar />
