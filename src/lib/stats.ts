@@ -5,7 +5,8 @@ export type CategoryId =
   | 'sudoku-logic'
   | 'spatial'
   | 'applied-math'
-  | 'battle';
+  | 'battle'
+  | 'classic';
 
 export interface SessionRecord {
   id: string;
@@ -86,6 +87,13 @@ export const CATEGORY_META: Record<
     badgeClass: 'text-rose-400 border-rose-500/40 bg-rose-950/40',
     href: '/battle',
   },
+  classic: {
+    title: 'Siêu Trí Tuệ Kinh Điển',
+    shortLabel: 'Kinh Điển',
+    colorHex: '#8b5cf6',
+    badgeClass: 'text-violet-400 border-violet-500/40 bg-violet-950/40',
+    href: '/classic',
+  },
 };
 
 export const GAME_CATALOG: GameCatalogItem[] = [
@@ -110,6 +118,27 @@ export const GAME_CATALOG: GameCatalogItem[] = [
 
   { id: 'math-arena', name: 'Math Battle Arena', vnName: 'Trận Chiến Tính Toán', category: 'battle', href: '/battle/math-arena' },
   { id: 'quick-reflex', name: 'Hyper Reflex & Stroop', vnName: 'Phản Xạ Nhanh', category: 'battle', href: '/battle/quick-reflex' },
+
+  // Category 6: Classic Super Brain (16 iconic games)
+  { id: 'knights-tour', name: "Blind Knight's Tour", vnName: 'Mã Đi Tuần Ẩn', category: 'classic', href: '/classic/knights-tour' },
+  { id: 'logic-bridges', name: 'Logic Tung Hoành', vnName: 'Logic Tung Hoành', category: 'classic', href: '/classic/logic-bridges' },
+  { id: 'sliding-puzzle', name: 'Huarong Dao / 15-Puzzle', vnName: 'Hoa Dung Đạo Số', category: 'classic', href: '/classic/sliding-puzzle' },
+  { id: 'nonogram', name: 'Nonogram Picross', vnName: 'Giải Mã Ảnh Ẩn', category: 'classic', href: '/classic/nonogram' },
+  { id: 'untangle', name: 'Planarity Untangle', vnName: 'Gỡ Rối Mạng Nhện', category: 'classic', href: '/classic/untangle' },
+
+  { id: 'three-view', name: '3-View Projection', vnName: 'Ba Hình Chiếu 3D', category: 'classic', href: '/classic/three-view' },
+  { id: 'origami-punch', name: 'Origami Hole Punch', vnName: 'Gấp Giấy Đục Lỗ', category: 'classic', href: '/classic/origami-punch' },
+  { id: 'honeycomb-maze', name: 'Honeycomb Maze', vnName: 'Mê Cung Tổ Ong', category: 'classic', href: '/classic/honeycomb-maze' },
+  { id: 'layer-overlay', name: 'Layer Overlay XOR', vnName: 'Tầng Tầng Điệp Ảnh', category: 'classic', href: '/classic/layer-overlay' },
+
+  { id: 'pixel-wall', name: 'Pixel Wall Memory', vnName: 'Bức Tường Điểm Ảnh', category: 'classic', href: '/classic/pixel-wall' },
+  { id: 'speed-cards', name: 'Speed Cards', vnName: 'Nhớ Bài Tây Siêu Tốc', category: 'classic', href: '/classic/speed-cards' },
+  { id: 'dual-n-back', name: 'Dual N-Back', vnName: 'Dual N-Back', category: 'classic', href: '/classic/dual-n-back' },
+  { id: 'path-memory', name: 'Path Memory Trace', vnName: 'Truy Tìm Dấu Vết', category: 'classic', href: '/classic/path-memory' },
+
+  { id: 'schulte-table', name: 'Schulte Table', vnName: 'Bảng Schulte', category: 'classic', href: '/classic/schulte-table' },
+  { id: 'magic-square', name: 'Magic Square', vnName: 'Ma Phương', category: 'classic', href: '/classic/magic-square' },
+  { id: 'tower-of-hanoi', name: 'Tower of Hanoi', vnName: 'Tháp Hà Nội', category: 'classic', href: '/classic/tower-of-hanoi' },
 ];
 
 const STATS_KEY = 'brain_training_stats_v1';
@@ -286,6 +315,7 @@ export function computeCategoryRatings(stats: TrainingStats): Record<CategoryId,
     'spatial',
     'applied-math',
     'battle',
+    'classic',
   ];
   const ratings: Record<CategoryId, number> = {
     'mental-math': 0,
@@ -293,6 +323,7 @@ export function computeCategoryRatings(stats: TrainingStats): Record<CategoryId,
     spatial: 0,
     'applied-math': 0,
     battle: 0,
+    classic: 0,
   };
 
   for (const cat of categories) {

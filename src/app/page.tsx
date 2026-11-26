@@ -63,6 +63,23 @@ export default function Home() {
       color: "from-red-500 to-rose-500",
       link: "/battle",
     },
+    {
+      id: 6,
+      categoryId: 'classic',
+      title: "6. Siêu Trí Tuệ Kinh Điển",
+      subTitle: "The Brain Classics • 16 Games",
+      desc: "Tuyển tập 16 thử thách huyền thoại từ chương trình Siêu Trí Tuệ Việt Nam & Trung Quốc.",
+      games: [
+        "Mã đi tuần ẩn",
+        "Logic tung hoành",
+        "Hoa dung đạo số",
+        "Tầng tầng điệp ảnh",
+        "Bức tường điểm ảnh",
+        "+11 game khác",
+      ],
+      color: "from-indigo-500 via-violet-500 to-fuchsia-500",
+      link: "/classic",
+    },
   ];
 
   return (

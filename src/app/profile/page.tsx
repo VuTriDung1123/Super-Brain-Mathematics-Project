@@ -19,6 +19,7 @@ const RADAR_CATEGORIES: CategoryId[] = [
   'spatial',
   'applied-math',
   'battle',
+  'classic',
 ];
 
 function BrainRadarChart({ ratings }: { ratings: Record<CategoryId, number> }) {
@@ -154,7 +155,7 @@ export default function ProfileDashboardPage() {
               HỒ SƠ SIÊU TRÍ TUỆ
             </h1>
             <p className="text-slate-400 mt-1">
-              Theo dõi chỉ số 5 nhóm kỹ năng, kỷ lục cá nhân và lịch sử rèn luyện trên trình duyệt của bạn.
+              Theo dõi chỉ số 6 nhóm kỹ năng, kỷ lục cá nhân và lịch sử rèn luyện trên trình duyệt của bạn.
             </p>
           </div>
 
@@ -193,7 +194,7 @@ export default function ProfileDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col items-center justify-center">
             <div className="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2">
-              Biểu Đồ Năng Lực 5 Trục
+              Biểu Đồ Năng Lực 6 Trục
             </div>
             <BrainRadarChart ratings={ratings} />
             <div className="mt-2 text-center">
@@ -220,7 +221,7 @@ export default function ProfileDashboardPage() {
               <span className="text-xs uppercase font-bold text-slate-500">Tỉ lệ hoàn thành</span>
               <div className="text-5xl font-mono font-black text-emerald-400 mt-4">{winRate}%</div>
               <span className="text-xs text-slate-400 mt-2">
-                Tính trên toàn bộ 17 bộ môn
+                Tính trên toàn bộ {GAME_CATALOG.length} bộ môn
               </span>
             </div>
 
@@ -235,7 +236,9 @@ export default function ProfileDashboardPage() {
             </div>
 
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
-              <span className="text-xs uppercase font-bold text-slate-500">Độ phủ 17 thử thách</span>
+              <span className="text-xs uppercase font-bold text-slate-500">
+                Độ phủ {GAME_CATALOG.length} thử thách
+              </span>
               <div className="text-5xl font-mono font-black text-cyan-400 mt-4">
                 {conqueredCount}
                 <span className="text-2xl text-slate-500">/{GAME_CATALOG.length}</span>
@@ -245,9 +248,11 @@ export default function ProfileDashboardPage() {
           </div>
         </div>
 
-        {/* 17-Game Personal Records */}
+        {/* All Personal Records */}
         <section className="space-y-4">
-          <h2 className="text-2xl font-black text-white">Kỷ Lục Từng Trò Chơi (17 Bộ Môn)</h2>
+          <h2 className="text-2xl font-black text-white">
+            Kỷ Lục Từng Trò Chơi ({GAME_CATALOG.length} Bộ Môn)
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {GAME_CATALOG.map((game) => {
               const rec = stats.games[game.id];
